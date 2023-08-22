@@ -2,7 +2,17 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div>
-    <h1>Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<environment include="Development">
+    <script type="module" src="https://localhost:7256/src/main.ts"></script>  
+</environment>
+
+<environment include="Production">
+    @section Styles {
+        <link rel="stylesheet" asp-href-include="/vite-client/assets/index-*.css">
+    }
+    @section Scripts {
+        <script asp-src-include="/vite-client/assets/index-*.js"></script>
+    }
+</environment>
+
+<div id="app"></div>
