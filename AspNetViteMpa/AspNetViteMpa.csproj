@@ -6,9 +6,6 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Folder Include="wwwroot\lib\" />
-  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Vite.AspNetCore" Version="1.9.3" />
