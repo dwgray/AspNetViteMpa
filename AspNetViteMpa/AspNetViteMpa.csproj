@@ -10,12 +10,13 @@
     <Folder Include="wwwroot\lib\" />
   </ItemGroup>
 
-  <Target Name='CompileClient'
-          BeforeTargets="Publish">
-    <Exec WorkingDirectory="./ClientApp"
-          Command="yarn" />
-    <Exec WorkingDirectory="./ClientApp"
-          Command="yarn build" />
+  <ItemGroup>
+    <PackageReference Include="Vite.AspNetCore" Version="1.9.3" />
+  </ItemGroup>
+
+  <Target Name="CompileClient" BeforeTargets="Publish">
+    <Exec WorkingDirectory="./ClientApp" Command="yarn" />
+    <Exec WorkingDirectory="./ClientApp" Command="yarn build" />
   </Target>
 
 </Project>

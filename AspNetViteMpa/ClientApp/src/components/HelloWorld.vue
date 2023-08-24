@@ -13,7 +13,7 @@ defineProps<{
       <a href="https://vuejs.org/" target="_blank" rel="noopener">Vue 3</a>.
     </h3>
     <h3>Hot Module reload is working</h3>
-    <h3>However, assets are not correctly served from the dev server, or in production</h3>
+    <h3>Assets are correctly loading in dev and prod</h3>
   </div>
 </template>
 
