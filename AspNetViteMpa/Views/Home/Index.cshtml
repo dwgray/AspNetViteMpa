@@ -1,17 +1,28 @@
-﻿@{
+﻿@using Vite.AspNetCore.Abstractions
+@inject IViteManifest Manifest;
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
 <environment include="Development">
-    <script type="module" src="~/src/main.ts"></script>  
+    <script type="module" src="~/src/pages/main/main.ts"></script>  
 </environment>
 
 <environment include="Production">
     @section Styles {
-        <link rel="stylesheet" asp-href-include="/vite-client/assets/index-*.css">
+        @{
+            var cssFiles = Manifest["vite-client/src/pages/main/index.html"]!.Css ?? new List<string>();
+            
+            foreach (var file in cssFiles)
+            {
+                <link rel="stylesheet" href="/@file">
+            }
+        }
     }
+
     @section Scripts {
-        <script asp-src-include="/vite-client/assets/index-*.js"></script>
+        <script type="module" src="/@Manifest["vite-client/src/pages/main/index.html"]!.File"></script>
     }
 </environment>
 

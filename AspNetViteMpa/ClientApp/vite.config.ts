@@ -1,8 +1,9 @@
 import { fileURLToPath, URL } from 'node:url'
-
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import mkcert from 'vite-plugin-mkcert'
+import { resolve } from 'path'
+
 // @ts-ignore
 import appsettingsDev from '../appsettings.Development.json'
 
@@ -21,7 +22,12 @@ export default defineConfig({
   build: {
     outDir: '../wwwroot/vite-client',
     emptyOutDir: true,
-    manifest: true
+    manifest: true,
+    rollupOptions: {
+      input: {
+        main: resolve(__dirname, 'src/pages/main/index.html')
+      }
+    }
   },
   resolve: {
     alias: {

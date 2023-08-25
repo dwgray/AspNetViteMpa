@@ -8,21 +8,9 @@
     @*<link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />*@
 </head>
 <body>
-    <header>
-        <nav>
-            <div>
-                <a asp-controller="Home" asp-action="Index">AspNetViteMpa</a>
-                <ul>
-                    <li>
-                        <a asp-controller="Home" asp-action="Index">Home</a>
-                    </li>
-                    <li>
-                        <a asp-controller="Home" asp-action="Privacy">Privacy</a>
-                    </li>
-                </ul>
-            </div>
-        </nav>
-    </header>
+<header>
+        <h1>AspNetViteMpa - @ViewData["Title"]</h1>
+</header>
     <div>
         <main role="main">
             @RenderBody()
