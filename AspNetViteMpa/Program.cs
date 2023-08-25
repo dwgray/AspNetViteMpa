@@ -27,6 +27,8 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
+app.MapGet("/api/hello", () => "Hello from the Server");
+
 if (app.Environment.IsDevelopment())
 {
     app.UseViteDevMiddleware();

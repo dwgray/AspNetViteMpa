@@ -1,7 +1,16 @@
 <script setup lang="ts">
+import { ref, onMounted } from 'vue'
+import axios from 'axios'
+
 defineProps<{
   msg: string
 }>()
+
+const serverMessage = ref("Server hasn't responded yet")
+
+onMounted(async () => {
+  serverMessage.value = (await axios.get('/api/hello')).data
+})
 </script>
 
 <template>
@@ -14,6 +23,7 @@ defineProps<{
     </h3>
     <h3>Hot Module reload is working</h3>
     <h3>Assets are correctly loading in dev and prod</h3>
+    <h3>Server Message: {{ serverMessage }}</h3>
   </div>
 </template>
 
