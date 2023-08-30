@@ -1,10 +1,16 @@
 <script setup lang="ts">
-defineProps<{
+import { computed } from 'vue'
+
+const props = defineProps<{
   msg: string
   logo: string
   color: string
   link: string
 }>()
+
+const fullLink = computed(() => {
+  return `/home${props.link}`
+})
 </script>
 
 <template>
@@ -15,7 +21,7 @@ defineProps<{
       {{ msg }}
     </h2>
     <h3>
-      <a :href="link">{{ link }}</a>
+      <a :href="fullLink">{{ fullLink }}</a>
     </h3>
   </div>
 </template>

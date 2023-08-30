@@ -2,18 +2,18 @@
 @inject IViteManifest Manifest;
 
 @{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Vite Page";
 }
 
 <environment include="Development">
-    <script type="module" src="~/src/pages/home/main.ts"></script>  
+    <script type="module" src="~/src/pages/vite-info/main.ts"></script>  
 </environment>
 
 <environment include="Production">
     @section Styles {
         <link rel="stylesheet" href="/@Manifest["vite-client/style.css"]!.File">
         @{
-            var cssFiles = Manifest["vite-client/src/pages/home/index.html"]!.Css ?? new List<string>();
+            var cssFiles = Manifest["vite-client/src/pages/vite-info/index.html"]!.Css ?? new List<string>();
             
             foreach (var file in cssFiles)
             {
@@ -23,7 +23,7 @@
     }
 
     @section Scripts {
-        <script type="module" src="/@Manifest["vite-client/src/pages/home/index.html"]!.File"></script>
+        <script type="module" src="/@Manifest["vite-client/src/pages/vite-info/index.html"]!.File"></script>
     }
 </environment>
 

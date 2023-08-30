@@ -18,7 +18,7 @@ namespace AspNetViteMpa.Controllers
             return View();
         }
 
-        public IActionResult Privacy()
+        public IActionResult Vite()
         {
             return View();
         }

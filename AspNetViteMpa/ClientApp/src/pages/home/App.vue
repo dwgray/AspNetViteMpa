@@ -17,6 +17,10 @@ onMounted(async () => {
 
 <template>
   <div>
+    <p>
+      Click on the links below to go to the sub-pages. Hint: This is some easy text to change to
+      show that HMR is working
+    </p>
     <ProductTile msg="Vite.js" :logo="viteLogo" color="green" link="/vite" />
     <ProductTile msg="Asp.Net" :logo="dotnetLogo" color="purple" link="/aspnet" />
     <ProductTile msg="Vue.js" :logo="vueLogo" color="green" link="/vue" />
@@ -24,5 +28,3 @@ onMounted(async () => {
     <p>Server Message: {{ serverMessage }}</p>
   </div>
 </template>
-
-<style scoped></style>

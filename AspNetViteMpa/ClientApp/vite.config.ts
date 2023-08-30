@@ -23,9 +23,11 @@ export default defineConfig({
     outDir: '../wwwroot/vite-client',
     emptyOutDir: true,
     manifest: true,
+    cssCodeSplit: false,
     rollupOptions: {
       input: {
-        main: resolve(__dirname, 'src/pages/main/index.html')
+        home: resolve(__dirname, 'src/pages/home/index.html'),
+        vite: resolve(__dirname, 'src/pages/vite-info/index.html')
       }
     }
   },
