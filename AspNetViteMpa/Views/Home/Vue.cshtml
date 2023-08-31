@@ -6,7 +6,7 @@
     ViewData["Title"] = Model.Title;
     ViewData["Description"] = Model.Description;
     var devEntry = $"/src/pages/{Model.Name}/main.ts";
-    var prodEntry = $"vite-client/src/pages/{Model.Name}/index.html";
+    var prodEntry = $"vite-client/src/pages/{Model.Name}/main.ts";
 }
 
 <environment include="Development">
@@ -17,7 +17,7 @@
     @section Styles {
         <link rel="stylesheet" href="/@Manifest["vite-client/style.css"]!.File">
         @{
-            var cssFiles = Manifest[$"vite-client/src/pages/{Model.Name}/index.html"]?.Css ?? new List<string>();
+            var cssFiles = Manifest[$"vite-client/src/pages/{Model.Name}/main.ts"]?.Css ?? new List<string>();
             
             foreach (var file in cssFiles)
             {

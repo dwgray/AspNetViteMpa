@@ -26,8 +26,8 @@ export default defineConfig({
     cssCodeSplit: false,
     rollupOptions: {
       input: {
-        home: resolve(__dirname, 'src/pages/home/index.html'),
-        vite: resolve(__dirname, 'src/pages/vite-info/index.html')
+        home: resolve(__dirname, 'src/pages/home/main.ts'),
+        vite: resolve(__dirname, 'src/pages/vite-info/main.ts')
       }
     }
   },
