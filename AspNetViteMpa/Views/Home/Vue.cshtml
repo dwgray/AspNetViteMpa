@@ -1,19 +1,23 @@
 ﻿@using Vite.AspNetCore.Abstractions
 @inject IViteManifest Manifest;
+@model VueModel
 
 @{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = Model.Title;
+    ViewData["Description"] = Model.Description;
+    var devEntry = $"/src/pages/{Model.Name}/main.ts";
+    var prodEntry = $"vite-client/src/pages/{Model.Name}/index.html";
 }
 
 <environment include="Development">
-    <script type="module" src="~/src/pages/home/main.ts"></script>  
+    <script type="module" src="@devEntry"></script>
 </environment>
 
 <environment include="Production">
     @section Styles {
         <link rel="stylesheet" href="/@Manifest["vite-client/style.css"]!.File">
         @{
-            var cssFiles = Manifest["vite-client/src/pages/home/index.html"]!.Css ?? new List<string>();
+            var cssFiles = Manifest[$"vite-client/src/pages/{Model.Name}/index.html"]?.Css ?? new List<string>();
             
             foreach (var file in cssFiles)
             {
@@ -23,7 +27,7 @@
     }
 
     @section Scripts {
-        <script type="module" src="/@Manifest["vite-client/src/pages/home/index.html"]!.File"></script>
+        <script type="module" src="/@Manifest[prodEntry]!.File"></script>
     }
 </environment>
 

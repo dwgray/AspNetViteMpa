@@ -1,10 +1,11 @@
 ﻿using AspNetViteMpa.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using System.Reflection;
 
 namespace AspNetViteMpa.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : VueController
     {
         private readonly ILogger<HomeController> _logger;
 
@@ -15,12 +16,13 @@ namespace AspNetViteMpa.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            //return View();
+            return RenderVue("home", "Home Page", "Home Page for AspNetViteMpa Sample");
         }
 
         public IActionResult Vite()
         {
-            return View();
+            return RenderVue("vite-info", "Vite Info", "Vite Info Page for AspNetViteMpa Sample");
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
