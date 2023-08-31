@@ -27,7 +27,9 @@ export default defineConfig({
     rollupOptions: {
       input: {
         home: resolve(__dirname, 'src/pages/home/main.ts'),
-        vite: resolve(__dirname, 'src/pages/vite-info/main.ts')
+        vite: resolve(__dirname, 'src/pages/vite-info/main.ts'),
+        dotnet: resolve(__dirname, 'src/pages/dotnet-info/main.ts'),
+        vue: resolve(__dirname, 'src/pages/vue-info/main.ts')
       }
     }
   },

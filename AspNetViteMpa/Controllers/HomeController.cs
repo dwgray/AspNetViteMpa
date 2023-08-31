@@ -25,6 +25,16 @@ namespace AspNetViteMpa.Controllers
             return RenderVue("vite-info", "Vite Info", "Vite Info Page for AspNetViteMpa Sample");
         }
 
+        public IActionResult AspNet()
+        {
+            return RenderVue("dotnet-info", "Asp.Net Info", "Asp.Net Info Page for AspNetViteMpa Sample");
+        }
+
+        public IActionResult Vue()
+        {
+            return RenderVue("vue-info", "Vue Info", "Vue Info Page for AspNetViteMpa Sample");
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
