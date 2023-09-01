@@ -26,22 +26,25 @@ const fullLink = computed(() => {
   </div>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
+@mixin center-text {
+  text-align: center;
+}
 .logo {
   display: block;
   margin: 0 auto 2rem;
 }
 
 h2 {
+  @include center-text();
   font-weight: 500;
   font-size: 2.6rem;
   position: relative;
   top: -10px;
-  text-align: center;
 }
 
 h3 {
-  text-align: center;
+  @include center-text();
   font-size: 1.2rem;
 }
 </style>
