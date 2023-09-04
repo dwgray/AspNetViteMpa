@@ -1,5 +1,5 @@
 import { fileURLToPath, URL } from 'node:url'
-import { defineConfig, UserConfig } from 'vite'
+import { defineConfig, Plugin, UserConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import mkcert from 'vite-plugin-mkcert'
 import { dirname, resolve } from 'path'
@@ -34,14 +34,16 @@ export default defineConfig({
   }
 })
 
-function AutoEndpoints() {
+// This plugin will find all files matching the pattern src/pages/*/main.ts
+//  and make them endpoints with the 'name' being the replacement for the *.
+function AutoEndpoints(): Plugin {
   return {
     name: 'auto-endpoints',
-    config(): UserConfig {
+    async config(): Promise<UserConfig> {
       const root = 'src/pages/'
       const pattern = root + '*/main.ts'
       const length = root.length
-      const dirs = fg.globSync(pattern).map((p) => dirname(p).substring(length))
+      const dirs = (await fg.glob(pattern)).map((p) => dirname(p).substring(length))
       console.log(dirs.join(','))
 
       const input = dirs.reduce((obj, item) => {
