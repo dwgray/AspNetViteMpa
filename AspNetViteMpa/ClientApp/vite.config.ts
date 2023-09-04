@@ -1,15 +1,17 @@
 import { fileURLToPath, URL } from 'node:url'
-import { defineConfig } from 'vite'
+import { defineConfig, UserConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import mkcert from 'vite-plugin-mkcert'
-import { resolve } from 'path'
+import { dirname, resolve } from 'path'
+import Inspect from 'vite-plugin-inspect'
+import fg from 'fast-glob'
 
 // @ts-ignore
 import appsettingsDev from '../appsettings.Development.json'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [vue(), mkcert()],
+  plugins: [Inspect({ build: true, outputDir: '.vite-inspect' }), vue(), mkcert(), AutoEndpoints()],
   base: '/vite-client/',
   server: {
     port: appsettingsDev.Vite.Server.Port,
@@ -23,15 +25,7 @@ export default defineConfig({
     outDir: '../wwwroot/vite-client',
     emptyOutDir: true,
     manifest: true,
-    cssCodeSplit: false,
-    rollupOptions: {
-      input: {
-        home: resolve(__dirname, 'src/pages/home/main.ts'),
-        vite: resolve(__dirname, 'src/pages/vite-info/main.ts'),
-        dotnet: resolve(__dirname, 'src/pages/dotnet-info/main.ts'),
-        vue: resolve(__dirname, 'src/pages/vue-info/main.ts')
-      }
-    }
+    cssCodeSplit: false
   },
   resolve: {
     alias: {
@@ -39,3 +33,30 @@ export default defineConfig({
     }
   }
 })
+
+function AutoEndpoints() {
+  return {
+    name: 'auto-endpoints',
+    config(): UserConfig {
+      const root = 'src/pages/'
+      const pattern = root + '*/main.ts'
+      const length = root.length
+      const dirs = fg.globSync(pattern).map((p) => dirname(p).substring(length))
+      console.log(dirs.join(','))
+
+      const input = dirs.reduce((obj, item) => {
+        const value = resolve(__dirname, root + item + '/main.ts')
+        obj[item] = value
+        return obj
+      }, {} as any)
+
+      return {
+        build: {
+          rollupOptions: {
+            input: input
+          }
+        }
+      }
+    }
+  }
+}
