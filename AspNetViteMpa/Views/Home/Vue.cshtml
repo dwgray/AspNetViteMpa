@@ -5,20 +5,57 @@
 @{
     ViewData["Title"] = Model.Title;
     ViewData["Description"] = Model.Description;
-    var devEntry = $"/src/pages/{Model.Name}/main.ts";
-    var prodEntry = $"vite-client/src/pages/{Model.Name}/main.ts";
 }
 
+@functions
+{
+    // Returns a list of css files from a single manifest entry
+    private List<string> CssFromManifest(string key)
+    {
+        var node = Manifest[key];
+        if (node == null)
+        {
+            return new List<string>();
+        }
+
+        var files =  node.Css?.ToList() ?? new List<string>();
+
+        var imports = node.Imports;
+        if (imports == null)
+        {
+            return files;
+        }
+
+        foreach (var import in imports)
+        {
+            files.AddRange(CssFromManifest(import));
+        }
+
+        return files;
+    }
+
+    private string Base => "vite-client";
+    private string DevEntry => $"/src/pages/{Model.Name}/main.ts";
+    private string ProdEntry => $"{Base}/src/pages/{Model.Name}/main.ts";
+    private string? ProdCss => Manifest[$"{Base}/style.css"]?.File;
+}
+
+
 <environment include="Development">
-    <script type="module" src="@devEntry"></script>
+    <script type="module" src="@DevEntry"></script>
 </environment>
 
 <environment include="Production">
     @section Styles {
-        <link rel="stylesheet" href="/@Manifest["vite-client/style.css"]!.File">
+        //  This will pull in the main css file (which exists if cssCodeSplit=false)
+        @if (ProdCss != null)
+        {
+            <link rel="stylesheet" href="/@ProdCss">
+        }
+        // This pulls in the all the relate css files (which exist if cssCodeSplit=true)
         @{
-            var cssFiles = Manifest[$"vite-client/src/pages/{Model.Name}/main.ts"]?.Css ?? new List<string>();
-            
+            var cssFiles = CssFromManifest($"{Base}/src/pages/{Model.Name}/main.ts");
+
             foreach (var file in cssFiles)
             {
                 <link rel="stylesheet" href="/@file">
@@ -27,7 +64,7 @@
     }
 
     @section Scripts {
-        <script type="module" src="/@Manifest[prodEntry]!.File"></script>
+        <script type="module" src="/@Manifest[ProdEntry]!.File"></script>
     }
 </environment>
 

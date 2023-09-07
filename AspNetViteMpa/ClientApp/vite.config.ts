@@ -25,7 +25,7 @@ export default defineConfig({
     outDir: '../wwwroot/vite-client',
     emptyOutDir: true,
     manifest: true,
-    cssCodeSplit: false
+    cssCodeSplit: true
   },
   resolve: {
     alias: {
