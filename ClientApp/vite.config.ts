@@ -34,14 +34,24 @@ export default defineConfig({
   }
 })
 
-// This plugin will find all files matching the pattern src/pages/*/main.ts
-//  and make them endpoints with the 'name' being the replacement for the *.
+// This plugin will find all files matching the pattern src/pages/*/App.vue
+//  and make endpoints with the 'name' being the replacement for the *. and the
+//  path being src/pages/*/main.ts - then return a template for the main.ts file
 function AutoEndpoints(): Plugin {
+  const main = `import 'vite/modulepreload-polyfill'
+import '@/assets/main.css'
+
+import { createApp } from 'vue'
+import App from '{app}'
+
+createApp(App).mount('#app')
+`
+
   return {
     name: 'auto-endpoints',
     async config(): Promise<UserConfig> {
       const root = 'src/pages/'
-      const pattern = root + '*/main.ts'
+      const pattern = root + '*/Vue.app'
       const length = root.length
       const dirs = (await fg.glob(pattern)).map((p) => dirname(p).substring(length))
       console.log(dirs.join(','))
@@ -59,6 +69,10 @@ function AutoEndpoints(): Plugin {
           }
         }
       }
+    },
+    load(id: string): null | string {
+      const app = id.replace(/.*\/src\//, '@/').replace('main.ts', 'App.vue')
+      return id.endsWith('main.ts') ? main.replace('{app}', app) : null
     }
   }
 }
