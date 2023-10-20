@@ -1,18 +1,18 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
-import axios from 'axios'
+import { ref, onMounted } from 'vue';
+import axios from 'axios';
 
-import ProductTile from '../../components/ProductTile.vue'
+import ProductTile from '../../components/ProductTile.vue';
 
-import dotnetLogo from '../../assets/dotnet.svg'
-import viteLogo from '../../assets/vite.svg'
-import vueLogo from '../../assets/vue.svg'
+import dotnetLogo from '../../assets/dotnet.svg';
+import viteLogo from '../../assets/vite.svg';
+import vueLogo from '../../assets/vue.svg';
 
-const serverMessage = ref("Server hasn't responded yet")
+const serverMessage = ref("Server hasn't responded yet");
 
 onMounted(async () => {
-  serverMessage.value = (await axios.get('/api/hello')).data
-})
+  serverMessage.value = (await axios.get('/api/hello')).data;
+});
 </script>
 
 <template>

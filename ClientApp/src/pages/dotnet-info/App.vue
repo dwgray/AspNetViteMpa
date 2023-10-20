@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import ProductTile from '../../components/ProductTile.vue'
-import dotnetLogo from '../../assets/dotnet.svg'
+import ProductTile from '../../components/ProductTile.vue';
+import dotnetLogo from '../../assets/dotnet.svg';
 </script>
 
 <template>

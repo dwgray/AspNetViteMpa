@@ -1,16 +1,16 @@
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed } from 'vue';
 
 const props = defineProps<{
-  msg: string
-  logo: string
-  color: string
-  link: string
-}>()
+  msg: string;
+  logo: string;
+  color: string;
+  link: string;
+}>();
 
 const fullLink = computed(() => {
-  return `/home${props.link}`
-})
+  return `/home${props.link}`;
+});
 </script>
 
 <template>
