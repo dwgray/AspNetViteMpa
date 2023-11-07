@@ -47,12 +47,12 @@
 
 <environment include="Production">
     @section Styles {
-        //  This will pull in the main css file (which exists if cssCodeSplit=false)
+        @* This will pull in the main css file (which exists if cssCodeSplit=false) *@
         @if (ProdCss != null)
         {
             <link rel="stylesheet" href="/@ProdCss">
         }
-        // This pulls in the all the relate css files (which exist if cssCodeSplit=true)
+        @* This pulls in the all the relate css files (which exist if cssCodeSplit=true) *@
         @{
             var cssFiles = CssFromManifest($"{Base}/src/pages/{Model.Name}/main.ts");
 
