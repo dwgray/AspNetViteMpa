@@ -1,7 +1,6 @@
 ﻿using AspNetViteMpa.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
-using System.Reflection;
 
 namespace AspNetViteMpa.Controllers
 {
@@ -16,7 +15,6 @@ namespace AspNetViteMpa.Controllers
 
         public IActionResult Index()
         {
-            //return View();
             return RenderVue("home", "Home Page", "Home Page for AspNetViteMpa Sample");
         }
 
@@ -33,6 +31,11 @@ namespace AspNetViteMpa.Controllers
         public IActionResult Vue()
         {
             return RenderVue("vue-info", "Vue Info", "Vue Info Page for AspNetViteMpa Sample");
+        }
+
+        public IActionResult Privacy()
+        {
+            return View();
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
