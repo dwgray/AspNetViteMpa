@@ -28,3 +28,11 @@ onMounted(async () => {
     <p>Server Message: {{ serverMessage }}</p>
   </div>
 </template>
+
+<style scoped>
+p {
+  text-align: center;
+  font-size: 1.2rem;
+  color: blue;
+}
+</style>
