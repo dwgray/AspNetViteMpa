@@ -5,47 +5,50 @@
 @{
     ViewData["Title"] = Model.Title;
     ViewData["Description"] = Model.Description;
+
+    string Base = "vite-client";
 }
-
-@functions
-{
-    // Returns a list of css files from a single manifest entry
-    private List<string> CssFromManifest(string key)
-    {
-        var node = Manifest[key];
-        if (node == null)
-        {
-            return new List<string>();
-        }
-
-        var files =  node.Css?.ToList() ?? new List<string>();
-
-        var imports = node.Imports;
-        if (imports == null)
-        {
-            return files;
-        }
-
-        foreach (var import in imports)
-        {
-            files.AddRange(CssFromManifest(import));
-        }
-
-        return files;
-    }
-
-    private string Base => "vite-client";
-    private string DevEntry => $"/src/pages/{Model.Name}/main.ts";
-    private string ProdEntry => $"{Base}/src/pages/{Model.Name}/main.ts";
-    private string? ProdCss => Manifest[$"{Base}/style.css"]?.File;
-}
-
 
 <environment include="Development">
+    @{
+        string DevEntry = $"/src/pages/{Model.Name}/main.ts";
+    }
     <script type="module" src="@DevEntry"></script>
 </environment>
 
 <environment include="Production">
+    @functions
+    {
+        // Returns a list of css files from a single manifest entry
+        private List<string> CssFromManifest(string key)
+        {
+            var node = Manifest[key];
+            if (node == null)
+            {
+                return new List<string>();
+            }
+
+            var files = node.Css?.ToList() ?? new List<string>();
+
+            var imports = node.Imports;
+            if (imports == null)
+            {
+                return files;
+            }
+
+            foreach (var import in imports)
+            {
+                files.AddRange(CssFromManifest(import));
+            }
+
+            return files;
+        }
+    }
+
+    @{
+        string ProdEntry = $"{Base}/src/pages/{Model.Name}/main.ts";
+        string? ProdCss = Manifest[$"{Base}/style.css"]?.File;
+    }
     @section Styles {
         @* This will pull in the main css file (which exists if cssCodeSplit=false) *@
         @if (ProdCss != null)
@@ -54,7 +57,7 @@
         }
         @* This pulls in the all the relate css files (which exist if cssCodeSplit=true) *@
         @{
-            var cssFiles = CssFromManifest($"{Base}/src/pages/{Model.Name}/main.ts");
+            var cssFiles = CssFromManifest(ProdEntry);
 
             foreach (var file in cssFiles)
             {
