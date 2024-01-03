@@ -64,6 +64,7 @@ createApp(App).mount('#app')
 
       return {
         build: {
+          cssCodeSplit: true, // make the default explicit
           rollupOptions: {
             input: input,
           },
