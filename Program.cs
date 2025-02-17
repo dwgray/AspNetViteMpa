@@ -1,4 +1,4 @@
-using Vite.AspNetCore.Extensions;
+using Vite.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,7 +17,9 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-app.MapStaticAssets();
+app.MapStaticAssets(); // According to the .net 9 documentation, MapStaticAssets is the correct way to serve static files
+app.UseStaticFiles();  // and shouldn't require the call to app.UseStaticFiles() anymore, but that doesn't work for this
+                       // site for some reason, so I'm leaving it in for now.
 
 app.UseRouting();
 
@@ -31,7 +33,8 @@ app.MapGet("/api/hello", () => "Hello from the Server");
 
 if (app.Environment.IsDevelopment())
 {
-    app.UseViteDevMiddleware();
+    app.UseWebSockets();
+    app.UseViteDevelopmentServer(true);
 }
 
 app.Run();
