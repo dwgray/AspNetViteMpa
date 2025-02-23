@@ -6,14 +6,16 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
-
   <ItemGroup>
     <PackageReference Include="Vite.AspNetCore" Version="2.4.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="wwwroot\vite-client\.vite\**" CopyToPublishDirectory="PreserveNewest" Exclude="$(DefaultItemExcludes)" />
   </ItemGroup>
 
   <Target Name="CompileClient" BeforeTargets="Publish">
     <Exec WorkingDirectory="./ClientApp" Command="yarn" />
     <Exec WorkingDirectory="./ClientApp" Command="yarn build" />
   </Target>
-
 </Project>
