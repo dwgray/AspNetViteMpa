@@ -1,4 +1,5 @@
 using Vite.AspNetCore;
+using AspNetViteMpa.Utilities;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,8 +9,11 @@ builder.Services.AddViteServices();
 
 var app = builder.Build();
 
+var useVite = builder.Configuration.UseVite();
+var isDevelopment = builder.Environment.IsDevelopment();
+
 // Configure the HTTP request pipeline.
-if (!app.Environment.IsDevelopment())
+if (!isDevelopment)
 {
     app.UseExceptionHandler("/Home/Error");
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
@@ -31,10 +35,13 @@ app.MapControllerRoute(
 
 app.MapGet("/api/hello", () => "Hello from the Server");
 
-if (app.Environment.IsDevelopment())
+if (isDevelopment)
 {
     app.UseWebSockets();
-    app.UseViteDevelopmentServer(true);
+    if (useVite)
+    {
+        app.UseViteDevelopmentServer(true);
+    }
 }
 
 app.Run();
