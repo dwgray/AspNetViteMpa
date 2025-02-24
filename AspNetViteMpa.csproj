@@ -1,19 +1,21 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>net7.0</TargetFramework>
+    <TargetFramework>net9.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Vite.AspNetCore" Version="2.4.0" />
+  </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Vite.AspNetCore" Version="1.11.0" />
+    <Content Include="wwwroot\vite-client\.vite\**" CopyToPublishDirectory="PreserveNewest" Exclude="$(DefaultItemExcludes)" />
   </ItemGroup>
 
   <Target Name="CompileClient" BeforeTargets="Publish">
     <Exec WorkingDirectory="./ClientApp" Command="yarn" />
     <Exec WorkingDirectory="./ClientApp" Command="yarn build" />
   </Target>
-
 </Project>

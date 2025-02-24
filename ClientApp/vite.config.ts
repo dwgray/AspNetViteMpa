@@ -6,7 +6,6 @@ import { dirname, resolve } from 'path';
 import Inspect from 'vite-plugin-inspect';
 import fg from 'fast-glob';
 
-// @ts-ignore
 import appsettingsDev from '../appsettings.Development.json';
 
 // https://vitejs.dev/config/
@@ -15,7 +14,6 @@ export default defineConfig({
   base: '/vite-client/',
   server: {
     port: appsettingsDev.Vite.Server.Port,
-    https: true,
     strictPort: true,
     hmr: {
       clientPort: appsettingsDev.Vite.Server.Port,
